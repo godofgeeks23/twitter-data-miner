@@ -46,8 +46,6 @@ df = pd.DataFrame(data, columns=columns)
 print(df)
 
 
-
-
 # keywords = '@veritasium'
 # limit=300
 # tweets = tweepy.Cursor(api.search_tweets, q=keywords, count=100, tweet_mode='extended').items(limit)
