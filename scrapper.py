@@ -1,8 +1,11 @@
-# OAuth2.0 Version 
+import os
 import tweepy
 import json
+from dotenv import load_dotenv
 
-client = tweepy.Client(bearer_token='x')
+load_dotenv()
+
+client = tweepy.Client(os.getenv('bearer_token'))
 
 query = 'trump -is:retweet lang:en'
 tweets = tweepy.Paginator(client.search_recent_tweets, query=query,
