@@ -29,10 +29,8 @@ class Linstener(tweepy.Stream):
             self.disconnect()
 
 
-
-
-
-stream_tweet = Linstener(api_key, api_key_secret, access_token, access_token_secret)
+stream_tweet = Linstener(api_key, api_key_secret,
+                         access_token, access_token_secret)
 
 # stream by keywords
 keywords = ['2022', '#python']
@@ -57,7 +55,8 @@ for tweet in stream_tweet.tweets:
     if not tweet.truncated:
         data.append([tweet.user.screen_name, tweet.text])
     else:
-        data.append([tweet.user.screen_name, tweet.extended_tweet['full_text']])
+        data.append([tweet.user.screen_name,
+                    tweet.extended_tweet['full_text']])
 
 df = pd.DataFrame(data, columns=columns)
 
