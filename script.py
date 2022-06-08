@@ -6,7 +6,6 @@ import json
 import kafka  # Section 1
 
 
-
 load_dotenv()  # Section 2
 
 consumer_key = os.getenv("consumer_key")
@@ -25,7 +24,7 @@ class MyStreamListener(tw.StreamListener):
                       "screen_name": data.user.screen_name,
                       "id_string": data.user.id_str,
                       "location": data.user.location,
-                      } 
+                      }
         print(data.text)
         # THE FOLLOWING LINE SENDS DATA IN KAFKA (Under topic "trump").
         producer.send("trump", json.dumps(tweet_dict).encode("utf-8"))
