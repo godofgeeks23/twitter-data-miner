@@ -25,11 +25,17 @@ api = tweepy.API(auth)
 
 # save by users
 users = ['MehranShakarami', 'veritasium']
-user_ids = []
 for user in users:
-    user_ids.append(api.get_user(screen_name=user).id)
-stream_tweet.filter(follow=user_ids)
-
+    tweets = api.user_timeline(screen_name=user,count=200,include_rts = False,tweet_mode = 'extended')
+    for info in tweets[:3]:
+        print(info.created_at)
+        print(info.full_text)
+        print("\n")
+# tweets = api.user_timeline(screen_name='veritasium',count=200,include_rts = False,tweet_mode = 'extended')
+# for info in tweets[:3]:
+#     print(info.created_at)
+#     print(info.full_text)
+#     print("\n")
 
 # class Linstener(tweepy.Stream):
 #     tweets = []
