@@ -13,29 +13,25 @@ auth = tweepy.OAuthHandler(api_key, api_key_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
-# keywords = '@veritasium'
-# limit=300
-# tweets = tweepy.Cursor(api.search_tweets, q=keywords, count=100, tweet_mode='extended').items(limit)
+keywords = '@veritasium'
+limit = 200
+tweets = tweepy.Cursor(api.search_tweets, q=keywords, count=100, tweet_mode='extended').items(limit)
 # columns = ['User', 'Tweet']
 # data = []
-# for tweet in tweets:
-#     data.append([tweet.user.screen_name, tweet.full_text])
+for tweet in tweets:
+    # data.append([tweet.user.screen_name, tweet.full_text])
+    print(tweet.user.screen_name, tweet.created_at)
+    print(tweet.full_text)
+    print()
 # df = pd.DataFrame(data, columns=columns)
 # print(df)
 
-# save by users
-users = ['MehranShakarami', 'veritasium']
-for user in users:
-    tweets = api.user_timeline(screen_name=user,count=200,include_rts = False,tweet_mode = 'extended')
-    for info in tweets[:3]:
-        print(info.created_at)
-        print(info.full_text)
-        print("\n")
-# tweets = api.user_timeline(screen_name='veritasium',count=200,include_rts = False,tweet_mode = 'extended')
-# for info in tweets[:3]:
-#     print(info.created_at)
-#     print(info.full_text)
-#     print("\n")
+# users = ['MehranShakarami', 'veritasium']
+# for user in users:
+#     tweets = api.user_timeline(screen_name=user,count=200,include_rts = False,tweet_mode = 'extended')
+#     for info in tweets:
+#         print(info.created_at)
+#         print(info.full_text)
 
 # class Linstener(tweepy.Stream):
 #     tweets = []
