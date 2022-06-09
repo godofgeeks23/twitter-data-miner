@@ -13,15 +13,15 @@ auth = tweepy.OAuthHandler(api_key, api_key_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
-keywords = '@veritasium'
+keywords = 'python javascript'
 limit = 200
-tweets = tweepy.Cursor(api.search_tweets, q=keywords, count=100, tweet_mode='extended').items(limit)
+tweets = tweepy.Cursor(api.search_tweets, q=keywords, count=limit, tweet_mode='extended').items(limit)
 # columns = ['User', 'Tweet']
 # data = []
 for tweet in tweets:
     # data.append([tweet.user.screen_name, tweet.full_text])
     print(tweet.user.screen_name, tweet.created_at)
-    print(tweet.full_text)
+    print(tweet.full_text.encode("utf-8"))
     print()
 # df = pd.DataFrame(data, columns=columns)
 # print(df)
