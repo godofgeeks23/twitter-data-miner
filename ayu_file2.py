@@ -6,9 +6,9 @@ import json
 from dotenv import load_dotenv
 import os
 
-twitter_cred = dict()
 load_dotenv()
 
+twitter_cred = dict()
 twitter_cred["CONSUMER_KEY"] = os.getenv('consumer_key')
 twitter_cred["CONSUMER_SECRET"] = os.getenv('consumer_secret')
 twitter_cred["ACCESS_KEY"] = os.getenv('access_token')
