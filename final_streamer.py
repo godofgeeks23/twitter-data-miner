@@ -25,7 +25,10 @@ class StreamAPI(tw.StreamingClient):
             json.dump(json_data, f)
         print(raw_data)
         print()
+        # producer.send("trump", json.dumps(json_data).encode("utf-8"))
+        # return True
 
+# producer = kafka.KafkaProducer(bootstrap_servers="localhost:9092")
 
 streamer = StreamAPI(os.getenv('bearer_token'))
 
