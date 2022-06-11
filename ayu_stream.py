@@ -24,15 +24,17 @@ api = tw.API(auth, wait_on_rate_limit=True)
 class StreamAPI(tw.StreamingClient):
     def on_data(self,raw_data):
         #if(tweet != None):
-        json_data = json.loads(raw_data)
-        with open("json_data.json","w") as f:
-            json.dump(json_data,f)
-        print(json_data)
+        # json_data = json.loads(raw_data)
+        # with open("json_data.json","w") as f:
+            # json.dump(json_data,f)
+        print(raw_data)
+        print()
         # es.index(index ="twitter_index",document=json_data,ignore=400)
 
 streamer = StreamAPI(os.getenv('bearer_token'))
 
-terms = ['covid']
+# terms = "#Darkweb OR #Criminal OR #Intelligence OR #OSINT OR #DeepWeb OR #Leaked OR #DataBreach OR #Terror OR #Drugs OR #Cryptocurrency OR #Ransomware OR #carding OR #onionlink"
+terms = "#Darkweb OR #onionlink"
 
-streamer.add_rules(tw.StreamRule("bounty"))
+streamer.add_rules(tw.StreamRule(terms))
 streamer.filter()
