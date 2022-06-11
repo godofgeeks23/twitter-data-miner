@@ -1,7 +1,4 @@
 import tweepy as tw
-from datetime import datetime as dt
-from elasticsearch import Elasticsearch
-import pprint
 import json
 from dotenv import load_dotenv
 import os
