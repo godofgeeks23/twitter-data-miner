@@ -50,13 +50,13 @@ Next, run the following command to enable Elasticsearch to start up every time t
 
     sudo systemctl enable elasticsearch
 
-### ## Installing and Configuring the Kibana Dashboard
+### Installing and Configuring the Kibana Dashboard
 
-sudo apt install kibana
-
-sudo systemctl enable kibana
-
-sudo systemctl start kibana
+    sudo apt install kibana
+    
+    sudo systemctl enable kibana
+    
+    sudo systemctl start kibana
 
 Because Kibana is configured to only listen on `localhost`, we must set up a reverse proxy to allow external access to it. We will use Nginx for this purpose.
 
@@ -139,21 +139,51 @@ Create a topic to which your system will be publishing data -
 
     bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic trump
 
-### 
-Recommended Python version - 3.10.4
+### Setting up Python and Twitter API Credentials
+
+Recommended Python version - `3.10.4`
 
 Clone the repo or download the code zip file.
 
-Install the Python dependencies using - 
+Navigate into the local repo, and run the command for installing dependencies - 
 
-    pip install Pillow tensorflow keras
+    pip install -r ./requirements.txt
+
+
+Create a `.env` file in the directory, and set its contents as:
+
+    consumer_key='< your consumer key >'
+    
+    consumer_secret='< your consumer secret >'
+    
+    access_token='< your access token >'
+    
+    access_token_secret='< your access token secret >'
+    
+    bearer_token='< your bearer token >'
+
+And save it.
+
+*The credentials can be obtained by signing up for a Twitter developer account and API access.*
+
 
 ## Usage
 
-Move all of your images into the **`target`** folder.
-And then run the script using - 
+In `kafka_test_stream.py` ,  modify the line contaning 
 
-    python .\predict_TM.py
+    terms = "........"
 
-Now sit back and relax, while the machine does its job!
+to the topics you want data of.
 
+Run the script by 
+
+    python ./kafka_test_stream.py 
+
+The data scrapping starts and is sent to Elasticsearch through Kafka and Logstash.
+To view and analyze data from Kibana - 
+
+1. Open Kibana
+2. Goto Index Patterns.
+3. Create a new index pattern
+4. Select practice* from the available list of indexes.
+5. Create pattern, go to Kibana Discover, and select that index pattern to view the data collected.
