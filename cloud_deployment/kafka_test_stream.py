@@ -39,7 +39,7 @@ producer = kafka.KafkaProducer(bootstrap_servers="localhost:9092")
 
 streamer = StreamAPI(os.getenv('bearer_token'))
 
-terms = ['covid']
+terms = "trump"
 
-streamer.add_rules(tw.StreamRule("trump"))
+streamer.add_rules(tw.StreamRule(terms)
 streamer.filter()
