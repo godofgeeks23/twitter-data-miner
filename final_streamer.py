@@ -22,7 +22,7 @@ class StreamAPI(tw.StreamingClient):
     def on_data(self, raw_data):
         json_data = json.loads(raw_data)
         # with open("json_data.json", "w") as f:
-            # json.dump(json_data, f)
+        # json.dump(json_data, f)
         print(raw_data)
         print()
         # producer.send("trump", json.dumps(json_data).encode("utf-8"))
@@ -30,14 +30,17 @@ class StreamAPI(tw.StreamingClient):
 
 # producer = kafka.KafkaProducer(bootstrap_servers="localhost:9092")
 
+
 streamer = StreamAPI(os.getenv('bearer_token'))
 
-# terms = "#Darkweb OR #Criminal OR #Intelligence OR #OSINT OR #DeepWeb OR #Leaked OR #DataBreach OR #Terror OR #Drugs OR #Cryptocurrency OR #Ransomware OR #carding OR #onionlink"
-terms = "from:godofgeeks_"
+rules = ["#Darkweb OR #Criminal OR #Intelligence OR #OSINT OR #DeepWeb OR #Leaked OR #DataBreach OR #Terror OR #Drugs OR #Cryptocurrency OR #Ransomware OR #carding OR #onionlink",
+         "from:godofgeeks_"]
 
 # for rule in streamer.get_rules().data:
 #     streamer.delete_rules(rule.id)
 # print(streamer.get_rules())
 
-streamer.add_rules(tw.StreamRule(terms))
+for rule in rules:
+    streamer.add_rules(tw.StreamRule(rule))
+    
 streamer.filter()
