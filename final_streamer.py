@@ -21,8 +21,8 @@ api = tw.API(auth, wait_on_rate_limit=True)
 class StreamAPI(tw.StreamingClient):
     def on_data(self, raw_data):
         json_data = json.loads(raw_data)
-        with open("json_data.json", "w") as f:
-            json.dump(json_data, f)
+        # with open("json_data.json", "w") as f:
+            # json.dump(json_data, f)
         print(raw_data)
         print()
         # producer.send("trump", json.dumps(json_data).encode("utf-8"))
@@ -33,7 +33,11 @@ class StreamAPI(tw.StreamingClient):
 streamer = StreamAPI(os.getenv('bearer_token'))
 
 # terms = "#Darkweb OR #Criminal OR #Intelligence OR #OSINT OR #DeepWeb OR #Leaked OR #DataBreach OR #Terror OR #Drugs OR #Cryptocurrency OR #Ransomware OR #carding OR #onionlink"
-terms = "#Darkweb OR #onionlink"
+terms = "from:godofgeeks_"
+
+# for rule in streamer.get_rules().data:
+#     streamer.delete_rules(rule.id)
+# print(streamer.get_rules())
 
 streamer.add_rules(tw.StreamRule(terms))
 streamer.filter()
