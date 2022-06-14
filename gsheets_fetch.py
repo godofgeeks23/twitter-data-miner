@@ -6,4 +6,5 @@ sh = gc.open_by_url("https://docs.google.com/spreadsheets/d/1ELBSsc5tQIjZFHCmTof
 
 print(sh.id)
 print(sh.worksheets())
-
+wk1 = sh[0] 
+print(wk1.get_all_values())
