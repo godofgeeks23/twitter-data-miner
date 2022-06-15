@@ -2,6 +2,7 @@ import tweepy as tw
 import json
 from dotenv import load_dotenv
 import os
+import pygsheets
 
 load_dotenv()
 
@@ -33,8 +34,19 @@ class StreamAPI(tw.StreamingClient):
 
 streamer = StreamAPI(os.getenv('bearer_token'))
 
-rules = ["#Darkweb OR #Criminal OR #Intelligence OR #OSINT OR #DeepWeb OR #Leaked OR #DataBreach OR #Terror OR #Drugs OR #Cryptocurrency OR #Ransomware OR #carding OR #onionlink",
-         "from:godofgeeks_"]
+rules = []
+# rules.append("#Darkweb OR #Criminal OR #Intelligence OR #OSINT OR #DeepWeb OR #Leaked OR #DataBreach OR #Terror OR #Drugs OR #Cryptocurrency OR #Ransomware OR #carding OR #onionlink")
+rules.append("from:godofgeeks_ OR from:")
+
+gc = pygsheets.authorize(service_file='verified-security-sources-6b7e7530d6f5.json')
+sh = gc.open_by_url("https://docs.google.com/spreadsheets/d/1ELBSsc5tQIjZFHCmTofbwflOx37CK0OOpXEiMa2Irto/edit?usp=sharing")
+
+first_column_data = sh[0].get_col(1, include_tailing_empty=False)[1:] 
+usernames_list = [row.replace('https://twitter.com/', '') for row in first_column_data]
+username_rule = ""
+for username in usernames_list:
+    username_rule = username_rule + "from:" + username + " OR "
+print(username_rule)
 
 # for rule in streamer.get_rules().data:
 #     streamer.delete_rules(rule.id)
