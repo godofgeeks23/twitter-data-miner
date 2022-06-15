@@ -6,5 +6,10 @@ sh = gc.open_by_url("https://docs.google.com/spreadsheets/d/1ELBSsc5tQIjZFHCmTof
 
 # wk1 = sh[0]
 first_column_data = sh[0].get_col(1, include_tailing_empty=False)[1:] 
-usernames_list = [row.replace('https://twitter.com/', '') for row in first_column_data]
-print(usernames_list)
+usernames_list = [row.replace('https://twitter.com/', 'from:') for row in first_column_data]
+# print(usernames_list)
+
+username_rule = " OR ".join(usernames_list)
+# for username in usernames_list:
+    # username_rule = username_rule + "from:" + username + " OR "
+print(username_rule)
